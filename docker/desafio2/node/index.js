@@ -10,6 +10,14 @@ const config = {
 };
 const connection = mysql.createConnection(config)
 
+const sqlCreate = `CREATE TABLE IF NOT EXISTS people (
+    id INT NOT NULL AUTO_INCREMENT,
+    name VARCHAR(255),
+    PRIMARY KEY (id)
+);`
+
+connection.query(sqlCreate);
+
 const nomes = ['Heitor', 'Maria', 'João', 'Ana'];
 
 nomes.forEach((nome) =>{
