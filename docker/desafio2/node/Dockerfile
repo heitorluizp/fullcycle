@@ -13,7 +13,7 @@ RUN npm install mysql
 
 COPY . .
 
-CMD ["node", "index.js"]
+CMD ["wait-for-it.sh", "mysql:3306", "--", "node", "index.js"]
 
 EXPOSE 3000
 
