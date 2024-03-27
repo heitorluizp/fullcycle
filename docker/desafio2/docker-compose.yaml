@@ -32,7 +32,7 @@ services:
     networks :
       - node-network
 
-
+      
   nginx:
     build:
       context: nginx
