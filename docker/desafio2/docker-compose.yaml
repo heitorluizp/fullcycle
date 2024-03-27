@@ -2,17 +2,19 @@ version: '3'
 services:
   app:
     build:
-        context: node
+      context: ./node
+      dockerfile: Dockerfile
     container_name: app
     networks: 
       - node-network
     volumes:
-      - ./node:/usr/scr/app
+      - ./node:/usr/src/app
+      - /usr/src/app/node_modules
     tty: true 
     ports:
       - "3000:3000"
     depends_on:
-      - db
+      - db  
 
   db:
     platform: linux/x86_64
@@ -23,11 +25,13 @@ services:
     tty: true
     volumes:
       - ./mysql:/var/lib/mysql
+      - ./create_table.sql:/docker-entrypoint-initdb.d/create_table.sql
     environment:
       - MYSQL_DATABASE=nodedb
       - MYSQL_ROOT_PASSWORD=root
     networks :
       - node-network
+
 
   nginx:
     build:
